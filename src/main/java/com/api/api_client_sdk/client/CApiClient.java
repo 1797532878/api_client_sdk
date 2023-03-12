@@ -15,6 +15,8 @@ import java.util.HashMap;
  */
 public class CApiClient {
 
+    public static final String GATEWAY_HOST = "http://localhost:8090";
+
     String accessKey;
     String secretKey;
 
@@ -28,7 +30,7 @@ public class CApiClient {
         HashMap<String, Object> paramMap = new HashMap<>();
         paramMap.put("name", name);
 
-        String result= HttpUtil.get("http://localhost:8123/api/name/", paramMap);
+        String result= HttpUtil.get(GATEWAY_HOST + "/api/name/", paramMap);
         System.out.println(result);
         return result;
     }
@@ -38,7 +40,7 @@ public class CApiClient {
         HashMap<String, Object> paramMap = new HashMap<>();
         paramMap.put("name", name);
 
-        String result= HttpUtil.post("http://localhost:8123/api/name/", paramMap);
+        String result= HttpUtil.post(GATEWAY_HOST + "/api/name/", paramMap);
         System.out.println(result);
         return result;
     }
@@ -59,7 +61,7 @@ public class CApiClient {
     public String getUserNameByPost(User user) {
         String json = JSONUtil.toJsonStr(user);
         HashMap<String, String> headers = getHeaders(json);
-        HttpResponse httpResponse = HttpRequest.post("http://localhost:8123/api/name/user")
+        HttpResponse httpResponse = HttpRequest.post(GATEWAY_HOST + "/api/name/user")
                 .addHeaders(headers)
                 .body(json)
                 .execute();
